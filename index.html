@@ -1,12 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
-  <title>TEE.fail</title>
+  <title>TEE.fail: Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition</title>
   <link rel="icon" type="image/x-icon" href="/img/favicon.png">
-  <meta property="og:title" content="TEE.fail" />
+  <meta property="og:title" content="TEE.fail: Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition"/>
+  <meta property="og:description" content="Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition" />
   <meta property="og:url" content="https://tee.fail" />
-  <link rel="stylesheet" href="css/theme.css">
-
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5LRV6X3GF"></script>
   <script>
@@ -14,22 +13,1317 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());  gtag('config', 'G-Y5LRV6X3GF');
   </script>
+  <script>
+    function copy_to_clipboard() {
+      /* Get the text field */
+      var copyText = document.getElementById("citeTextarea");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+    }
+
+    function collapse_toggle() {
+      for(var e of document.querySelectorAll(".collapse-toggle")) {
+        e.click();
+      }
+    }
+  </script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap and Font-Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"
+    rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+  <link href="css/style.css" rel="stylesheet">
 </head>
+
 <body>
-  <div class="marquee-container">
-        <div class="marquee-content">
-            <span id="marquee-text-1"></span>
-            <span id="marquee-text-2"></span>
+  <div>
+    <button class="btn" id="cursor" style="display: none;">Leak Some Bits?</button>
+  </div>
+  <div class="container">
+    <section id="abstract">
+      <div class="row justify-content-center">
+        <div class="col-11">
+          <div class="card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-lg-4 col-sm-12">
+                    <img class="img-fluid" src="img/tee-fail-logo.png" id="logo" alt="TEE.fail Logo"
+                      style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;" />
+                  </div>
+                  <div class="col-lg-8 col-sm-12">
+                    <h1 class="text-left blue">TEE.fail:</h1>
+                    <h2 class="text-left">Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition</h2>
+                  </div>
+                </div>
+              </div>
+
+              <p class="card-text" style="margin-top: 2rem;">
+              <p>
+              With the increasing popularity of remote computation like cloud computing, users are increasingly losing control over their data, uploading it to remote servers that they do not control. Trusted Execution Environments (TEEs) aim to reduce this trust, offering users promises such as privacy and integrity of their data as well as correctness of computation. With the introduction of TEEs and Confidential Computing features to server hardware offered by Intel, AMD, and Nvidia, modern TEE implementations aim to provide hardware-backed integrity and confidentiality to entire virtual machines or GPUs, even when attackers have full control over the system's software, for example via root or hypervisor access. Over the past few years, TEEs have been used to execute confidential cryptocurrency transactions, train proprietary AI models, protect end-to-end encrypted chats, and more. 
+              </p>
+              <p>
+              In this work, we show that the security guarantees of modern TEE offerings by Intel and AMD can be broken cheaply and easily, by building a memory interposition device that allows attackers to physically inspect all memory traffic inside a DDR5 server. Making this worse, despite the increased complexity and speed of DDR5 memory, we show how such an interposition device can be built cheaply and easily, using only off the shelf electronic equipment. 
+			  This allows us for the first time to extract cryptographic keys from Intel TDX and AMD SEV-SNP with Ciphertext Hiding, including in some cases secret attestation keys from fully updated machines in trusted status. Beyond breaking CPU-based TEEs, we also show how extracted attestation keys can be used to compromise Nvidia's GPU Confidential Computing, allowing attackers to run AI workloads without any TEE protections. Finally, we examine the resilience of existing deployments to TEE compromises, showing how extracted attestation keys can potentially be used by attackers to extract millions of dollars of profit from various cryptocurrency and cloud compute services. 
+              </p>
+            </div>
+
+            <div class="card-footer text-center w-100">
+              <a href="files/paper.pdf" class="btn btn-primary me-2"><i class="fa fa-file"></i> Read
+                the Paper</a>
+
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cite-tee-fail"><i
+                  class="fa fa-quote-right"></i> Cite</a>
+            </div>
+
+            <div class="modal fade" id="cite-tee-fail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cite TEE.fail</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <textarea class="form-control rounded-0" id="citeTextarea" rows="8" readonly>
+@inproceedings{tee-fail,
+    title     = {TEE.fail: Breaking Trusted Execution Environments via DDR5 Memory Bus Interposition},
+    booktitle = {47th IEEE Symposium on Security and Privacy (IEEE S\&P '26)},
+    author    = {Jalen Chuang and Alex Seto and Nicolas Berrios and Stephan van Schaik and Christina Garman and Daniel Genkin},
+    url       = {https://tee.fail},
+    publisher = {IEEE Computer Society},
+    year      = {2026},
+}</textarea>
+                  </div>
+
+                  <div class="modal-footer">
+                    <a href="javascript:copy_to_clipboard()" class="btn btn-primary me-auto"><i class="fa fa-clipboard"
+                        aria-hidden="true"></i> Copy to clipboard</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-  </div>
-  <div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; width: 100vw; margin: auto; left: 0; right: 0; position: absolute;">
-    <img class="img-fluid" src="img/logo.png" id="logo" alt="TEE.fail Logo" style="width: 80vw;" />
+      </div>
+
+    </section>
   </div>
 
+  <div class="container">
+    <section id="demos">
+      <h4 style="padding-top: 20px;">Demos</h4>
+
+      <h5 class="gray">Capturing DRAM Bus Traffic Using a Logic Analyzer</h5>
+      <p>
+          We use our DDR5 DRAM Bus interposer to observe memory transactions, showing reads and writes to plain and encrypted memory alike. On the left is our DDR5 interposer device, soldered by hand. On the right is our target setup with the interposer attached to a DDR5-based target machine running TDX.
+      </p>
+      <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-center">
+          <div class="col-5" style="margin-right: 16px;">
+            <h5 class="gray">DDR5 DRAM Bus Interposer</h5>
+            <div class="row justify-content-center">
+              <img src="img/interposer.jpg" style="max-width: 100%;">
+            </div>
+          </div>
+          <div class="col-5">
+            <h5 class="gray">Complete Target Setup</h5>
+            <div class="row justify-content-center">
+              <img src="img/la.jpg" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="gray">Covertly Capturing DRAM Traffic from a Datacenter (or Are You Crazy?! Who Will Let You Into a Datacenter With This Thing!)</h5>
+      <p>
+          You are right, hopefully no one sane allows bulky lab instruments into their datacenters unsupervised. However, we have also built a portable version, which fits neatly into a 17" briefcase, ready to be taken to new exciting places with only the freshest keys. When closed, it looks like a regular briefcase and even fits under the seat in front of you in an airplane, so good luck explaining this to TSA agents at the airport near you. Finally, the briefcase does not need to be open for the attack to work and it even has a cup holder for your coffee.
+      </p>
+	  <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-center">
+          <div class="col" style="margin-right: 8px;">
+            <div class="row justify-content-center">
+              <img src="img/la-suitcase.jpg" style="max-width: 100%;">
+            </div>
+          </div>
+          <div class="col" style="margin-right: 8px;">
+            <div class="row justify-content-center">
+              <img src="img/datacenter-closed.jpg" style="max-width: 100%;">
+            </div>
+          </div>
+          <div class="col">
+            <div class="row justify-content-center">
+              <img src="img/datacenter.jpg" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <h5 class="gray">Deterministic Encryption in TEEs</h5>
+    <p>
+        While TEEs do encrypt their data, we show that the encryption mode used by Intel and AMD is not sufficient to prevent physical memory interposition attacks. The photo below shows a DDR5-based TDX machine performing three write operations. The first writes zeros to memory, the second writes ones, and the third writes zeros again. While the data itself is encrypted, notice how the values written by the first and third operation are the same. This is called deterministic encryption and forms the basis of our attack, as we can compare blocks of encrypted data and learn if the underlying data is equal or not. 
+    </p>
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-10">
+              <div class="row justify-content-center">
+                <img src="img/deterministic.png" style="max-width: 100%;">
+              </div>
+        </div>
+    </div>
+
+    <h5 class="gray">Recovering Attestation Keys from Intel Machines</h5>
+    <p>
+        Here, we show how to use our portable briefcase logic analyzer to extract ECDSA attestation keys from Intel's Provisioning Certification Enclave (PCE), allowing us to break SGX and TDX attestation. We recover the key in a fully automated manner from a single signing operation.
+    </p>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-10">
+          <div class="ratio ratio-16x9">
+            <video poster="video/key.png" src="video/key.mp4" controls
+              style="max-width: 100%;"></video>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="gray">Forged TDX Quote</h5>
+      <p>
+        We provide a forged TDX quote utilizing our extracted key. This TDX quote can be successfully verified using <a href="https://github.com/intel/SGX-TDX-DCAP-QuoteVerificationLibrary">Intel's DCAP Quote Verification Library</a> at the highest trust level of UpToDate. This quote contains invalid measurements of 0x1337..., which are not possible in an authentic TDX report. The quote, associated collateral (information required to verify the quote), and scripts to verify the quote on a Linux system are provided for download below.
+      </p>
+      <h2 style="text-align: center;"><b><a class="fail"
+            href="files/tee-fail-quote.zip">Download</a></b></h2>
+      <h2 style="text-align: center;"><b><a class="fail"
+            href="https://view.tee.fail/view/679bceab9897d142e6c338756b39b5ea446643381d706e49a035428d5d167073">View Quote Info</a></b></h2>
+      <pre>
+# Usage:
+# Build the Intel Quote Verification Library
+./build_qvl.sh
+# Attest the quote - succeeds
+./attest.sh
+      </pre>
+    </section>
+    
+    <h5 class="gray">Forged Quote as a Service</h5>
+    <p>
+        Want your own quote? No problem. Check out our Attestation as a Service bot and obtain a freshly-minted customized attestation quote at your favorite social media service, signed on genuine not-capable-of-TDX hardware using up to date Intel keys! What would you like to attest today?
+    </p>
+      <h2 style="text-align: center;"><b><a class="fail"
+            href="https://x.com/@teedotfail">X (Twitter)</a></b> / 
+      <a class="fail"
+            href="https://bsky.app/profile/tee.fail">BlueSky</a></b></h2>
+ 
+    <section id="people">
+      <h4 style="padding-top: 20px;">The People Behind
+        <span class="blue">TEE.fail</span>
+      </h4>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <ul>
+              <li>
+                <a href="https://gt.rsp.rip">Jalen Chuang</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="#">Alex Seto</a>
+                <span class="badge badge-purdue">
+                  <a class="univ" href="https://www.purdue.edu/">Purdue University</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="#">Nicolas Berrios</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://codentium.com/about">Stephan van Schaik</a>
+                <span class="badge badge-umich">
+                  <a class="univ" href="https://codentium.com/about">van Schaik, LLC</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://www.cs.purdue.edu/homes/clg">Christina Garman</a>
+                <span class="badge badge-purdue">
+                  <a class="univ" href="https://www.purdue.edu/">Purdue University</a>
+                </span>
+              </li>
+
+              <li>
+                <a href="https://genkin.io">Daniel Genkin</a>
+                <span class="badge badge-gatech">
+                  <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h2 style="text-align: center;"><b><a class="fail"
+                  href="https://architecture.fail/">architecture.fail</a></b></h2>
+            <h2 style="text-align: center;"><b><a class="fail"
+                  href="https://barc.cs.purdue.edu/">Purdue BARC</a></b></h2>
+            <p style="text-align: center;">Check out our lab websites!</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p style="text-align: center;"><b>Contact us at <a
+                  href="mailto:teefail@googlegroups.com">teefail@googlegroups.com</a></b></p>
+            <br>
+            <div class="row justify-content-center align-items-center" style="margin-top: -20px; margin-bottom: -20px;">
+			  <div class="col-lg-5" style="text-align: center;">
+                <img class="img-fluid" src="img/gatech.png" alt="Georgia Institute of Technology" />
+              </div>
+              <div class="col-lg-3 col-4" style="text-align: center;">
+                <img class="img-fluid" src="img/purdue.png" alt="Purdue University" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="qa">
+      <div style="padding-top: 30px;">
+      <h4 style="display: inline;">Frequently Asked Questions</h4>
+      <a href="javascript:collapse_toggle()" class="btn btn-primary me-auto" style="display: inline;">Hide/Show All</a>
+      </div>
+
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-0"
+                aria-expanded="true" aria-controls="answer-0-0">
+                What is the DRAM Bus and DDR5?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-0" class="collapse" aria-labelledby="question-0-0">
+            <div class="card-body">
+              <p>
+                DRAM refers to the physical memory inserted into a computer's motherboard. Memory often comes in DIMM modules, which for DDR5 look like this:
+                <img src="img/dimm.jpg" style="max-width: 100%;">
+                The DRAM Bus is the actual wiring and protocol that allows the processor to communicate with the DIMMs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-1"
+                aria-expanded="true" aria-controls="answer-0-1">
+                What is bus interposition?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-1" class="collapse" aria-labelledby="question-0-1">
+            <div class="card-body">
+              <p>
+                Bus interposition refers to hardware that is located between two ends of a bus and allows us to see the communication taking place on the bus itself. In the case of the DRAM Bus, this is memory traffic such as reads and writes performed by your computer. To observe the traffic, we attach the interposer to a logic analyzer, which is a device that lets us analyze and record the data passing through.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-2"
+                aria-expanded="true" aria-controls="answer-0-2">
+                Can I see your interposer?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-2" class="collapse" aria-labelledby="question-0-2">
+            <div class="card-body">
+              <p>
+                Sure. The photo to the left is the interposer itself, where the logic analyzer connects to the square gray pods. The photo on the right focuses on the soldering itself, showing the components for the probe isolation network used on each pin.
+
+                <div class="row justify-content-center align-items-center">
+                <div class="row justify-content-center align-items-center">
+                <div class="col-5" style="margin-right: 16px;">
+                <div class="row justify-content-center">
+                <img src="img/interposer2.jpg" style="max-width: 100%;">
+                </div>
+                </div>
+                <div class="col-5">
+                <div class="row justify-content-center">
+                <img src="img/soldering.jpg" style="max-width: 100%;">
+                </div>
+                </div>
+                </div>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-3"
+                aria-expanded="true" aria-controls="answer-0-3">
+                Why does your interposer have wires soldered only to one side?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-3" class="collapse" aria-labelledby="question-0-3">
+            <div class="card-body">
+              <p>
+                Unlike the older DDR4 standard, DDR5 memory has two independent channels on a single DIMM. Bascially DDR5 has two independent DIMMs in one memory module. As we only need one channel to mount our attack, we opted to go with Channel A (left in the picture above) leaving the other side unmodified. Ironically, it means that DDR5 interposers are easier to build than their DDR4 counterparts, as only 50% of the soldering work is required. Likewise, they also need 50% less input channels to capture their traffic which means less logic analyzer hardware is required.
+
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-4">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-4"
+                aria-expanded="true" aria-controls="answer-0-4">
+                How do I build this interposer?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-4" class="collapse" aria-labelledby="question-0-4">
+            <div class="card-body">
+              <p>
+                Check out our paper for full details on how to build your own DDR5 DRAM interposer, including board schematics. The components are readily available and it should cost you under $1000 to build a setup similar to ours.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-5"
+                aria-expanded="true" aria-controls="answer-0-5">
+                What can you use the DDR5 Bus interposer for?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-5" class="collapse" aria-labelledby="question-0-5">
+            <div class="card-body">
+              <p>
+                It allows us to see and record the memory traffic flowing between the computer and DRAM, but not modify it (unfortunately). Crucially, we can observe the contents of memory as it is read and written, even if the data itself is encrypted.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-6">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-6"
+                aria-expanded="true" aria-controls="answer-0-6">
+                Why did you solder it manually? Can't you just design a PCB?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-6" class="collapse" aria-labelledby="question-0-6">
+            <div class="card-body">
+              <p>
+                It was simpler for us to solder components to existing risers rather than design a PCB from scratch. That said, if you would like to help us out and design one, do email us at <a href="mailto:teefail@googlegroups.com">teefail@googlegroups.com</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-7">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-7"
+                aria-expanded="true" aria-controls="answer-0-7">
+                How does this differ from <a href="https://wiretap.fail">WireTap</a> and <a href="https://batteringram.eu">BatteringRAM</a>?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-7" class="collapse" aria-labelledby="question-0-7">
+            <div class="card-body">
+              <p>
+                Both <a href="https://wiretap.fail">WireTap</a> and <a href="https://batteringram.eu">BatteringRAM</a> targeted systems built on older DDR4 memory, whereas we target DDR5. The difference is critical, as TEE.fail can be used to attack the latest TEE offerings by Intel and AMD, namely Intel TDX and AMD SEV-SNP with Ciphertext Hiding, which offer confidential virtual machines (CVMs). As CVMs are used for the trust anchor in Nvidia's GPU confidential computing, we show how our attack also breaks GPU attestation. We then show how real-world CVM deployments are affected by these interposer attacks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Trusted Execution Environments</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-0"
+                aria-expanded="true" aria-controls="answer-1-0">
+                What is a Trusted Execution Environment (TEE)?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-0" class="collapse" aria-labelledby="question-1-0">
+            <div class="card-body">
+              <p>
+                A trusted execution environment (TEE) is a hardware feature that aims to provide confidentiality and integrity of code and data, even if attackers completely compromised the system's software and obtained root level access. The idea is that users can trust that their data remains secured even if processed and stored on remote servers they do not actually control, as data protection is enforced by the hardware itself (rather than the operator). Common examples of TEEs include Intel's SGX and TDX, AMD's SEV and Nvidia's Confidential Compute.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-1"
+                aria-expanded="true" aria-controls="answer-1-1">
+                What is a Virtual Machine (VM) and a Confidential Virtual Machine (CVM)?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-1" class="collapse" aria-labelledby="question-1-1">
+            <div class="card-body">
+              <p>
+                <p>
+                When cloud operators rent out servers, customers are paying for a digital version of a physical computer, which allows them to run their own software on it to provide you (the end user) some service. This digital version is what is commonly referred as a Virtual Machine, or VM in short. However, while saving on costs, this model also places a large amount of trust in cloud operators, as they can easily inspect, read, or even modify all the customers' VMs that they run.
+                </p>
+                <p>
+                A Confidential Virtual Machine (CVM) aims to reduce this trust, as it provides additional hardware-backed confidentiality and integrity guarantees, preventing even the cloud operator from accessing the code and data inside the CVM via software. Intel's TDX and AMD's SEV-SNP are examples of TEEs providing CVM technology. Services often argue that users' data is secure and private since they use CVMs, meaning that your data will never be exposed to others or even to the service provider themselves.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-2"
+                aria-expanded="true" aria-controls="answer-1-2">
+                What is attestation?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-2" class="collapse" aria-labelledby="question-1-2">
+            <div class="card-body">
+              <p>
+                <p>
+                Attestation is the process by which a service provider proves to the user that data is about to be placed into a confidential VM and thus protected inside the TEE by the hardware's confidentiality and integrity guarantees. When attestation is properly done, users know that their data will not be exposed to others and can even be assured that the output they get is genuine and correct.
+                </p>
+                <p>
+                Attestation is implemented using cryptographic digital signatures with keys placed inside each individual CPU and signed by the hardware vendors such as Intel or AMD. This way, a user can verify a chain of trust from the execution of the enclave on a specific CPU to Intel or AMD and thus be assured that their data is protected by the CPU's TEE and not exposed to the outside.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-3"
+                aria-expanded="true" aria-controls="answer-1-3">
+                So what did your attack do?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-3" class="collapse" aria-labelledby="question-1-3">
+            <div class="card-body">
+              <p>
+                <p>
+                We are able to successfully extract data from CVMs, including secret attestation keys. As attestation is the mechanism used to prove that data and code are actually executed in a CVM, this means that we can pretend that your data and code is running inside a CVM when in reality it is not. We can read your data and even provide you with incorrect output, while still faking a successfully completed attestation process. The implications of this breach are highly dependent on the service you are using, ranging from decrypting confidential transactions to exposing your AI chats. Keep reading <a href="#question-3-0">below</a> for specific examples of our attacks.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-4">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-4"
+                aria-expanded="true" aria-controls="answer-1-4">
+                But what about TEE memory encryption?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-4" class="collapse" aria-labelledby="question-1-4">
+            <div class="card-body">
+              <p>
+                <p>
+                TEEs including Intel SGX, TDX, and AMD SEV-SNP use memory encryption to protect their memory. However, this encryption is flawed and is deterministic, meaning that the same inputs can be matched to the same outputs. Although this may seem normal, this means that when we see a ciphertext (an encrypted value) multiple times, we know the corresponding plaintext in memory was the same every time.
+                </p>
+                <p>
+                The images below illustrate the problem here. The left is a plain picture of Tux, the Linux penguin, while the middle is a picture of Tux properly encrypted, which is basically just random noise unless you have the decryption key. The right is Tux encrypted with deterministic encryption. As you can see, while the colors are distorted, you can easily see the penguin. This is the crux of our attack.
+                </p>
+                <div class="container">
+                <div class="row">
+                <!--<div class="col-sm">
+                <img class="img-fluid" src="img/tux_clear.bmp" alt="Tux the Penguin, plainly visible">
+                </div>
+                <div class="col-sm">
+                <img class="img-fluid" src="img/tux_gcm.bmp" alt="Tux the Penguin, encrypted properly with GCM. Alternatively, what my TV looks like when I don't pay my cable bill.">
+                </div>
+                <div class="col-sm">
+                <img class="img-fluid" src="img/tux_xts.png" alt="Tux the Penguin, encrypted improperly with XTS.">
+                </div>
+                -->
+
+                <img class="img-fluid" src="img/tuxes.png" alt="Tux the Penguin, in plaintext, encrypted with GCM, and encrypted with XTS.">
+                </div>
+                </div>
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-5"
+                aria-expanded="true" aria-controls="answer-1-5">
+                How practical are these attacks? Do I need a lab for this?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-5" class="collapse" aria-labelledby="question-1-5">
+            <div class="card-body">
+              <p>
+                <p>
+                These attacks are very practical and you don't need a lab. Check out the paper for how to build an interposer yourself. The components are easily available on the Internet. Once built, we are able to successfully extract secret keys from TEEs and violate their protections. We can even breach SGX and TDX attestation and pretend to be running a confidential virtual machine, even when we are not.
+                </p>
+                <p>
+                You can even generate your own forged attestation quote with our bot! Check it out on <a href="https://x.com/@teedotfail">Twitter</a> and <a href="https://bsky.app/profile/tee.fail">BlueSky</a>
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-6">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-6"
+                aria-expanded="true" aria-controls="answer-1-6">
+                How do I know if I was targeted with this attack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-6" class="collapse" aria-labelledby="question-1-6">
+            <div class="card-body">
+              <p>
+                It is difficult to detect this attack from software as everything executes normally, just outside of TEE protections. For Intel TEEs, properly forged SGX and TDX attestation quotes are cryptographically indistinguishable from legitimate ones.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-7">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-7"
+                aria-expanded="true" aria-controls="answer-1-7">
+                What can I do to protect myself?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-7" class="collapse" aria-labelledby="question-1-7">
+            <div class="card-body">
+              <p>
+                <p>
+                If you own the hardware, you might want to use your security cameras to see people with interposers inside your data center. If you operate a service, make sure you understand which servers you trust and where they are located. Trusting just any attestation report without understanding that machine's location might not be a good idea for the time being.
+                </p>
+                <p>
+                We also recommend taking into account TEE compromises when designing your service's security practices. Finally, it might be possible to mitigate the risks stemming from deterministic encryption via software countermeasures. However, these might be difficult and expensive. Contact us at <a href="mailto:teefail@googlegroups.com">teefail@googlegroups.com</a> if you'd like to help out or discuss more.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-8">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-8"
+                aria-expanded="true" aria-controls="answer-1-8">
+                Has this actually attack been used in the wild?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-8" class="collapse" aria-labelledby="question-1-8">
+            <div class="card-body">
+              <p>
+                As far as we know, this has not been exploited in the wild.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Intel SGX and TDX</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-0"
+                aria-expanded="true" aria-controls="answer-2-0">
+                What is Intel SGX and TDX?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-0" class="collapse" aria-labelledby="question-2-0">
+            <div class="card-body">
+              <p>
+                SGX (Software Guard eXtensions) and TDX (Trust Domain eXtensions) are a set of features present on recent servers made by Intel which make up Intel's Trusted Execution Environments (TEEs). SGX is an older Intel technology (available since 2016) and places code and data into secure spaces known as enclaves, which are protected from attackers with root-level access. TDX is newer and much more ambitious, placing entire virtual machines inside TEE protections with little modifications. Thus, while SGX required developers to change their code to support TEEs, TDX removes this requirement, thus allowing existing systems to easily enjoy TEE security guarantees.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-1"
+                aria-expanded="true" aria-controls="answer-2-1">
+                But what does TDX have to do with SGX?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-1" class="collapse" aria-labelledby="question-2-1">
+            <div class="card-body">
+              <p>
+                Both TDX and SGX use deterministic encryption to protect memory, making them vulnerable to bus interposition attacks. Making things worse, TDX's security actually relies on SGX for attestation. This means that SGX breaches can and often will affect TDX, tying together the security guarantees across all of Intel's TEE implementations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-2"
+                aria-expanded="true" aria-controls="answer-2-2">
+                What is attestation in TDX?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-2" class="collapse" aria-labelledby="question-2-2">
+            <div class="card-body">
+              <p>
+                Attestation is the process by which an Intel TDX CVM can prove that it actually executed on TDX hardware in a trusted manner. In Intel TDX, attestation contains measurements (cryptographic hashes) of the boot and runtime state of the CVM, the signer of the CVM image, and its configuration. It additionally attests that the TDX hardware contains the latest, up to date TDX firmware. The attestation report is signed by a cryptographic signature chain that starts at a per-CPU attestation key and ends at Intel's public root of trust.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-3"
+                aria-expanded="true" aria-controls="answer-2-3">
+                What is this Intel attestation key you extracted?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-3" class="collapse" aria-labelledby="question-2-3">
+            <div class="card-body">
+              <p>
+                We extracted the provisioning certification key, which is a per-CPU signing key used in the signature chain to sign the actual keys used in both SGX and TDX attestation. The provisioning certification key is signed by Intel's platform registration service as an X.509 certificate. With this key, we can forge attestations from both TDX and SGX. This means we can pretend to run code in a trusted manner inside TDX or SGX, while not actually utilizing confidential VMs or enclaves at all. This means VMs and enclaves will run exposed outside of any TEE protections. In fact, we can also run TDX VMs or SGX enclaves on non-Intel hardware, such as AMD or Apple CPUs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-4">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-4"
+                aria-expanded="true" aria-controls="answer-2-4">
+                Are there mitigations for Intel TDX?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-4" class="collapse" aria-labelledby="question-2-4">
+            <div class="card-body">
+              <p>
+                As interposer attacks are considered out of the threat model for Intel SGX and TDX, there is no current mitigation besides separately ensuring physical security of the TDX-enabled server.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-5"
+                aria-expanded="true" aria-controls="answer-2-5">
+                Is there guidance from Intel?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-5" class="collapse" aria-labelledby="question-2-5">
+            <div class="card-body">
+              <p>
+                Yes, Intel has published a security announcement <a href="https://intel.com/content/www/us/en/security-center/announcement/intel-security-announcement-2025-10-28-001.html">here</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-2-6">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-2-6"
+                aria-expanded="true" aria-controls="answer-2-6">
+                Which Intel products are affected by this?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-2-6" class="collapse" aria-labelledby="question-2-6">
+            <div class="card-body">
+              <p>
+                The interposer attack presented in this paper affects all Intel CPUs using DDR5 memory. At the time of writing, this means Scalable Xeon CPUs from the 4th generation onwards, i.e., all CPUs currently supporting TDX.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">AMD SEV-SNP</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-0"
+                aria-expanded="true" aria-controls="answer-3-0">
+                What is AMD SEV-SNP?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-0" class="collapse" aria-labelledby="question-3-0">
+            <div class="card-body">
+              <p>
+                Similar to Intel TDX, AMD's Secure Encrypted Virtualization (SEV) is a set of TEE hardware features allowing for confidential virtual machines. SEV with Secure Nested Paging (SEV-SNP) is the most recent extension to SEV, providing important isolation between hypervisors and guest virtual machines.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-1"
+                aria-expanded="true" aria-controls="answer-3-1">
+                What is Ciphertext Hiding?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-1" class="collapse" aria-labelledby="question-3-1">
+            <div class="card-body">
+              <p>
+                Ciphertext Hiding is a security feature for SEV-SNP recently introduced in AMD EPYC servers based on the Zen 5 architecture. It prevents host hypervisors from reading the ciphertexts of encrypted CVM memory. This is necessary to truly mitigate prior software-based attacks on SEV (such as <a href="https://cipherleaks.com/">Cipherleaks</a>). We note that Intel TDX and SGX always had such isolation mechanisms as a baseline feature.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-2"
+                aria-expanded="true" aria-controls="answer-3-2">
+                How is interposition unaffected by Ciphertext Hiding?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-2" class="collapse" aria-labelledby="question-3-2">
+            <div class="card-body">
+              <p>
+                Ciphertext Hiding only prevents the software view of encrypted memory. It does not fix issues with deterministic encryption nor does it prevent physical bus interposition. Thus, it does not affect our attack.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-3"
+                aria-expanded="true" aria-controls="answer-3-3">
+                What did you attack in SEV-SNP?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-3" class="collapse" aria-labelledby="question-3-3">
+            <div class="card-body">
+              <p>
+                <p>
+                We demonstrate our attack by extracting private signing keys from OpenSSL's ECDSA implementation from an SEV-SNP VM. Importantly, OpenSSL's cryptographic code is fully constant-time and our machine had Ciphertext Hiding enabled, thus showing these features are not sufficient to mitigate bus interposition attacks.
+                </p>
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-4">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-4"
+                aria-expanded="true" aria-controls="answer-3-4">
+                Are there mitigations for AMD SEV-SNP?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-4" class="collapse" aria-labelledby="question-3-4">
+            <div class="card-body">
+              <p>
+                Like Intel, AMD considers interposer attacks to be out of scope for SEV-SNP. Thus, AMD does not plan to publish any updates to their SEV-SNP firmware. To mitigate our attacks, users need to separately ensure the physical security of their servers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-3-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-3-5"
+                aria-expanded="true" aria-controls="answer-3-5">
+                Which AMD products are affected by this?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-3-5" class="collapse" aria-labelledby="question-3-5">
+            <div class="card-body">
+              <p>
+                AMD products with SEV-SNP and DDR5 memory are affected. At the time of writing this includes EPYC server CPUs based on the Zen 4 and 5 architectures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Nvidia Confidential Computing (CC)</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-4-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-4-0"
+                aria-expanded="true" aria-controls="answer-4-0">
+                What is Nvidia Confidential Computing?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-4-0" class="collapse" aria-labelledby="question-4-0">
+            <div class="card-body">
+              <p>
+                Nvidia's Confidential Computing (CC) is a set of TEE features on recent high-end Nvidia server GPUs (e.g., H100/200, B100/200, etc.) aiming to protect GPU workloads like AI. Like other TEEs, Nvidia CC also includes a set of attestation features which can be used with SEV and TDX to extend the trust domain of CVMs to encompass GPUs. This allows users to
+                not only verify  that they are running on genuine Intel or AMD servers but also that the server has a genuine Nvidia GPU installed. Overall, the combination of CPU and GPU attestation means that GPU workloads like AI chats always remain protected, with their confidentaility and integrity being backed by the TEE hardware.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-4-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-4-1"
+                aria-expanded="true" aria-controls="answer-4-1">
+                How is the security of Nvidia CC affected by the CPU TEE security?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-4-1" class="collapse" aria-labelledby="question-4-1">
+            <div class="card-body">
+              <p>
+                Although Nvidia CC provides remotely verifiable attestation quotes, they are not bound to the identity of a specific CVM or even the CPU running it. Instead, Nvidia CC provides the means for a CVM to ensure that it has access to a genuine fully updated Nvidia GPU, as well as allows the CVM to establish an encrypted channel to the GPU which cannot be read by the hypervisor.
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-4-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-4-2"
+                aria-expanded="true" aria-controls="answer-4-2">
+                So what did your attack do?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-4-2" class="collapse" aria-labelledby="question-4-2">
+            <div class="card-body">
+              <p>
+                
+                Basically, the fact that Nvidia's attestation reports are not bound to the identity of a specific CVM means we can "borrow" Nvidia attestations from devices that aren't ours. This means that we can convince users that their applications (think private chats with LLMs or Large Language Models) are being protected inside the GPU's TEE while in fact it is running in the clear. As the attestation report is "borrowed", we don't even own a GPU to begin with.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-4-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-4-3"
+                aria-expanded="true" aria-controls="answer-4-3">
+                Are there any mitigations? How do I protect myself with Nvidia CC?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-4-3" class="collapse" aria-labelledby="question-4-3">
+            <div class="card-body">
+              <p>
+                As TEE.fail does not directly attack any Nvidia CC elements, there are no mitigations from the Nvidia CC side. Instead, we recommend users ensure they truly trust the servers running their applications, ensuring that the servers are located in environments with adequate physical security measures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">BuilderNet</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-5-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-5-0"
+                aria-expanded="true" aria-controls="answer-5-0">
+                What is <a href="https://buildernet.org/">BuilderNet</a>?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-5-0" class="collapse" aria-labelledby="question-5-0">
+            <div class="card-body">
+              <p>
+                <p>
+                <a href="https://buildernet.org/">BuilderNet</a> is a network of Ethereum block builders that uses TDX to provide fairness, confidentiality, and provable redistribution of maximum extractable value (MEV) while creating blocks, where MEV is the most value a block constructor can extract from a given block by including/excluding/reordering transactions.  BuilderNet builds blocks worth millions of dollars of MEV each month and is in general one of the largest block builders.
+                </p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-5-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-5-1"
+                aria-expanded="true" aria-controls="answer-5-1">
+                What attack did you demonstrate on BuilderNet?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-5-1" class="collapse" aria-labelledby="question-5-1">
+            <div class="card-body">
+              <p>
+                We demonstrated that a malicious operator with an attestation key could join BuilderNet and obtain configuration secrets, including the ability to decrypt confidential orderflow and access the Ethereum wallet for paying validators.
+                Additionally, a malicious operator could build arbitrary blocks or frontrun (i.e., construct a new transaction with higher fees to ensure theirs is executed first) the confidential transactions for profit while still providing deniability.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-5-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-5-2"
+                aria-expanded="true" aria-controls="answer-5-2">
+                Doesn't BuilderNet require Azure TDX machines?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-5-2" class="collapse" aria-labelledby="question-5-2">
+            <div class="card-body">
+              <p>
+                While BuilderNet currently only supports instances hosted on the Microsoft Azure cloud for TDX, which has its own implementation of a trusted platform module (TPM) with additional measurements, we discovered we are able to forge the Azure TPM data because the Azure TPM attestation as implemented in BuilderNet fully relies on TDX attestation. Thus, we are able to pretend to be an Azure instance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-5-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-5-3"
+                aria-expanded="true" aria-controls="answer-5-3">
+                How is BuilderNet mitigating this? Is there anything to do if I use BuilderNet for my orderflow?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-5-3" class="collapse" aria-labelledby="question-5-3">
+            <div class="card-body">
+              <p>
+                Although BuilderNet <a href="https://github.com/BuilderNet/website/blob/ab65fbeb000583aa92c5e3c7c51532a90cd2a091/docs/what-is-buildernet.mdx#operators">aims</a> to eventually be permissionless, BuilderNet is currently permissioned and considering approaches to mitigate malicious operator risk. As far as we are aware, none of the current operators are compromised. If you use BuilderNet, ensure you are submitting orderflow to the latest official public endpoints and verify that its attestations are signed by official Azure TPM certificates.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">dstack</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-6-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-6-0"
+                aria-expanded="true" aria-controls="answer-6-0">
+                What is <a href="https://phala.com/dstack">dstack</a>?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-6-0" class="collapse" aria-labelledby="question-6-0">
+            <div class="card-body">
+              <p>
+                <a href="https://phala.com/dstack">dstack</a> is an SDK for building confidential applications on top of CVMs and Nvidia CC. With it, users can easily create a CVM, deploy it to a server, and check the TEE attestation reports.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-6-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-6-1"
+                aria-expanded="true" aria-controls="answer-6-1">
+                What attack do you demonstrate on dstack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-6-1" class="collapse" aria-labelledby="question-6-1">
+            <div class="card-body">
+              <p>
+                We demonstrate that a malicious server provider can execute a user's workload in a non-confidential VM but forge all attestation information such that the user nonetheless believes that their workload has been run in a real TDX CVM. Furthermore, we show how we can "borrow" Nvidia CC attestations from devices that aren't ours, faking ownership of GPU hardware and convincing others that we have GPUs that we have never owned.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-6-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-6-2"
+                aria-expanded="true" aria-controls="answer-6-2">
+                What do you mean by using attestations from GPUs you don't own?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-6-2" class="collapse" aria-labelledby="question-6-2">
+            <div class="card-body">
+              <p>
+                Since Nvidia CC's attestation relies entirely on the CVM for trust, a user cannot tell if an Nvidia GPU attestation report was truly generated on the same hardware the virtual machine claims it is. Thus, if the user requests a GPU attestation, we show how an attacker can cheaply relay an attestation report from a spot GPU on another remote provider to that user.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-6-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-6-3"
+                aria-expanded="true" aria-controls="answer-6-3">
+                How do I mitigate these attestation attacks when using dstack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-6-3" class="collapse" aria-labelledby="question-6-3">
+            <div class="card-body">
+              <p>
+                As dstack is just an SDK, when building on top of it, make sure to take into consideration possible attestation breaches. In general, when designing or using applications built with dstack, you need to be conscious of the trust needed in physical operators of TDX hardware.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Secret Network</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-7-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-7-0"
+                aria-expanded="true" aria-controls="answer-7-0">
+                What is <a href="https://scrt.network/">Secret Network</a>?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-7-0" class="collapse" aria-labelledby="question-7-0">
+            <div class="card-body">
+              <p>
+                <a href="https://scrt.network/">Secret Network</a> is a blockchain that provides confidentiality and integrity of smart contract execution by way of Intel's SGX. This is accomplished by encrypting all on-chain data, and provisioning only a TEE with the necessary key material to decrypt transactions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-7-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-7-1"
+                aria-expanded="true" aria-controls="answer-7-1">
+                What attack do you demonstrate on Secret Network?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-7-1" class="collapse" aria-labelledby="question-7-1">
+            <div class="card-body">
+              <p>
+                We demonstrate the direct extraction of the primary network-side secret, the consensus seed, from the SGX TEE by exploiting deterministic encryption. This secret allows us to decrypt all confidential transactions on the network. This attack shows that even in a world where attestation attacks are somehow mitigated and attestation keys themselves are safe, Intel TEE applications and their secrets are still at risk from our attack.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-7-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-7-2"
+                aria-expanded="true" aria-controls="answer-7-2">
+                How does this differ from the attack against Secret in <a href="https://wiretap.fail">WireTap</a>?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-7-2" class="collapse" aria-labelledby="question-7-2">
+            <div class="card-body">
+              <p>
+                In WireTap, Secret is only attacked by way of attestation, while TEE.fail directly exploits cryptographic code executing in the Secret-provided SGX enclave to extract secrets.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-7-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-7-3"
+                aria-expanded="true" aria-controls="answer-7-3">
+                Are there mitigations for Secret? What do I do as a Secret user?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-7-3" class="collapse" aria-labelledby="question-7-3">
+            <div class="card-body">
+              <p>
+                Since the publication of <a href="https://wiretap.fail">WireTap</a>, Secret has limited trusted operators to joining the network, and published guidance <a href="https://scrt.network/blog/secret-network-security-update-intel-sgx-vulnerability-response">here</a>. Users can be assured that their money is safe and no action needs to be taken at the moment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Miscellaneous</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-8-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-8-0"
+                aria-expanded="true" aria-controls="answer-8-0">
+                Can I use the logo?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-8-0" class="collapse" aria-labelledby="question-8-0">
+            <div class="card-body">
+              <p>
+                Yes, with rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. You can download the logo here:<br>
+                Without text: <a href="img/tee-fail-logo.png" download>PNG</a>, <a href="img/tee-fail-logo.svg" download>SVG</a><br>
+                With TEE.fail text: <a href="img/tee-fail-logo-text.png" download>PNG</a>, <a href="img/tee-fail-logo-text.svg" download>SVG</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="acknowledgments">
+      <h4>Acknowledgments</h4>
+      <div class="block">
+        <p>
+          This research was supported by the Air Force Office of Scientific
+          Research (AFOSR) under award number FA9550-24-1-0079;
+          the Alfred P. Sloan Research Fellowship;
+          and gifts from Qualcomm and Zama.
+          <br><br>
+          The views and conclusions contained in this document are those of the authors and should not
+          be interpreted as representing the official policies, either expressed or implied, of the
+          U.S. Government.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="text-center w-100">
+      <span>Copyright &copy; 2025 Georgia Institute of Technology and Purdue University. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script src="cursor.js"></script>
-</body>
-</html>
 
+</body>
+
+</html>

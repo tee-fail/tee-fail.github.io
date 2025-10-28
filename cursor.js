@@ -1,27 +1,3 @@
-const text1 = document.getElementById('marquee-text-1');
-const text2 = document.getElementById('marquee-text-2');
-
-const characters = "01";
-
-// Function to generate a random string of a given length
-function generateRandomString(length) {
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
-}
-
-// Function to update the marquee text
-function updateMarqueeText() {
-    const randomString = generateRandomString(200);
-    text1.textContent = randomString;
-    text2.textContent = randomString; // Keep the two spans synchronized
-}
-
-// Update the text initially
-updateMarqueeText();
-
 // Based on code from:
 // https://github.com/tholman/cursor-effects
 
@@ -147,6 +123,29 @@ updateMarqueeText();
     }
   }
 
-  bindEvents();
-  requestAnimationFrame(loop);
+  var status = false;
+  var elem = document.querySelector("#cursor");
+
+  function toggleCursor() {
+    if(status) {
+      unbindEvents();
+      cancelAnimationFrame(animationFrame);
+      for( var i = particles.length -1; i >= 0; i-- ) {
+        particles[i].die();
+      }
+      particles.length = 0;
+      elem.innerText = "Leak Some Bits?";
+    } else {
+      bindEvents();
+      animationFrame = requestAnimationFrame(loop);
+      elem.innerText = "Stop Leaking Bits";
+    }
+
+    status = !status;
+  }
+
+  elem.addEventListener("click", toggleCursor);
+  elem.style = "";
+
+  toggleCursor();
 })();
