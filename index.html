@@ -50,11 +50,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
 
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/tee.css" rel="stylesheet">
 </head>
 
 <body>
   <div>
     <button class="btn" id="cursor" style="display: none;">Leak Some Bits?</button>
+  </div>
+  <div class="overlay nodisplay"></div>
+  <div class="positioner nodisplay">
+    <div class="alertBox">
+      <div class="alertText"></div>
+      <button class="dismiss" aria-label="Dismiss">&times;</button>
+    </div>
   </div>
   <div class="container">
     <section id="abstract">
@@ -1390,6 +1398,7 @@
   <!-- Bootstrap 5 JS Bundle (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script src="cursor.js"></script>
+  <script src="tee.js"></script>
 
 </body>
 

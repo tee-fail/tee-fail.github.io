@@ -1,0 +1,110 @@
+/* On mobile the overlay is invisible (banner is inline); on desktop it dims the page. */
+.overlay {
+  @media (min-width: 768px) {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 900;
+  }
+}
+
+/* On mobile: static block in the normal flow. On desktop: fixed centered popover. */
+.positioner {
+  @media (max-width: calc(768px - 1px)) {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 901;
+    width: min(1000px, 90vw);
+  }
+}
+
+.alertBox {
+  &.info {
+    background-color: #e9f4fd;
+    color: #1a3c5e;
+  }
+
+  &.success {
+    background-color: #e8f8e8;
+    color: #1a3c1e;
+  }
+
+  &.error {
+    background-color: #fdecea;
+    color: #5c1a1a;
+  }
+
+  display: flex;
+  align-items: flex-start;
+  width: fit-content;
+  justify-content: center;
+  font-size: 0.95rem;
+  margin: auto;
+
+  @media (max-width: calc(768px - 1px)) {
+    &.info { border-left: 4px solid #2196f3; }
+    &.success { border-left: 4px solid #4caf50; }
+    &.error { border-left: 4px solid #f44336; }
+    margin: 1vh 3vw;
+    padding: 14px 20px;
+  }
+
+  @media (min-width: 768px) {
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    padding: 40px 48px;
+  }
+}
+
+.alertText {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 1rem;
+  font-weight: 400;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.dismiss {
+  &.info { color: #1a3c5e; }
+  &.success { color: #1a3c1e; }
+  &.error { color: #5c1a1a; }
+
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: calc(768px - 1px)) {
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  @media (min-width: 768px) {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 1.5rem;
+  }
+}
+
+.nodisplay {
+  display: none;
+}
