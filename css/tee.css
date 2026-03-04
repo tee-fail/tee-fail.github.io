@@ -51,7 +51,7 @@
     &.info { border-left: 4px solid #2196f3; }
     &.success { border-left: 4px solid #4caf50; }
     &.error { border-left: 4px solid #f44336; }
-    margin: 1vh 3vw;
+    margin: 6vh 3vw 0px 3vw;
     padding: 14px 20px;
   }
 
